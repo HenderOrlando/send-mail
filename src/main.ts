@@ -5,10 +5,11 @@ import { ExpressAdapter } from "@nestjs/platform-express";
 import express from "express";
 import * as bodyParser from "body-parser";
 
-const expressApp = express();
-expressApp.use(bodyParser.json());
+let cachedApp: express.Express | null = null;
 
 async function bootstrap() {
+  const expressApp = express();
+  expressApp.use(bodyParser.json());
   const app = await NestFactory.create(
     AppModule,
     new ExpressAdapter(expressApp),
@@ -21,10 +22,14 @@ async function bootstrap() {
       transform: true, // importante para que convierta al tipo DTO
     }),
   );
-  //await app.listen(process.env.PORT ?? 3000);
   await app.init();
+  /*await app.listen(process.env.PORT ?? 3000);*/
+  return expressApp;
 }
 
-void bootstrap();
-
-export const handler = expressApp;
+export default async function handler(req, res) {
+  if (!cachedApp) {
+    cachedApp = await bootstrap();
+  }
+  return cachedApp(req, res);
+}

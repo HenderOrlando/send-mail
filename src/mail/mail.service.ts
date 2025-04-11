@@ -7,8 +7,7 @@ import { ContactDto } from "src/contact/dto/contact.dto";
 
 @Injectable()
 export class MailService {
-  private readonly templatePath =
-    __dirname + "/../contact/templates/contact-email.hbs";
+  private readonly templatePath = __dirname + "/../templates/contact-email.hbs";
   constructor(private readonly config: ConfigService) {}
 
   private getConfigValue<T>(key: string): T {
