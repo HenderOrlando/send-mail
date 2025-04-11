@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from "@nestjs/common";
+import { Body, Controller, Get, Post } from "@nestjs/common";
 import { ContactDto } from "./dto/contact.dto";
 import { ContactService } from "./contact.service";
 
@@ -15,5 +15,9 @@ export class ContactController {
         error instanceof Error ? error.message : "Unknown error";
       throw new Error(`Failed to handle contact: ${errorMessage}`);
     }
+  }
+  @Get()
+  getHello(): string {
+    return this.contactService.getHello();
   }
 }
