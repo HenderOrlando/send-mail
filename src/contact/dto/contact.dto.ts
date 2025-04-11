@@ -2,17 +2,17 @@ import { IsEmail, IsNotEmpty } from "class-validator";
 
 export class ContactDto {
   @IsNotEmpty()
-  nombre: string;
+  nombre!: string;
 
   @IsNotEmpty()
-  apellido: string;
+  apellido!: string;
 
   @IsEmail()
-  email: string;
+  email!: string;
 
   @IsNotEmpty()
-  telefono: string;
+  telefono!: string;
 
   @IsNotEmpty()
-  mensaje: string;
+  mensaje!: string;
 }

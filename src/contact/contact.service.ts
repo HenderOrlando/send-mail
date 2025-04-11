@@ -10,4 +10,7 @@ export class ContactService {
     await this.mailService.sendContactEmail(dto);
     return { success: true, message: "Correo enviado con éxito" };
   }
+  getHello(): string {
+    return "Hello World!";
+  }
 }
